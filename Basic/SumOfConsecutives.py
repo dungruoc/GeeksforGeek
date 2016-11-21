@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
 """
-Given a number n, the task is to check whether it can be expressed as a sum of two or more consecutive numbers or not.
+Given a number n, the task is to check whether it can be expressed as a sum of
+ two or more consecutive numbers or not.
 
 Examples:
 
@@ -21,7 +22,8 @@ Output : 1
 
 Input:
 
-The first line contains 'T' denoting the number of test cases. Then follows description of test cases.
+The first line contains 'T' denoting the number of test cases.
+Then follows description of test cases.
 Each test case contains a single positive integer n.
 
 Output:
@@ -43,7 +45,27 @@ Output :
 
 Solution:
 https://en.wikipedia.org/wiki/Polite_number
-These are polite numbers. As stated, impolite numbers are exactly powers of 2
+These are polite numbers. As stated, impolite numbers are exactly powers of 2.
+
+Proof:
+1 - Any odd number is a polite number: 2k + 1 = k + (k+1)
+2 - Any even number that is the product of 2 and an odd number is polite:
+    2 * (2k + 1) = (k-1) + k + (k+1) + (k+2)
+3 - And by induction, we can see that any number that is product of 2 and a polite
+    number is a polite number:
+    N = i + ... + (i + k - 1)
+    - if k is even: N is then odd, so 2*N is polite as in (2)
+    - if k is odd: there is a median in the above sum, namely S:
+      N = (S - (k-1)/2) + ... (S - 1) + S + (S+1) + ... (S + (k-1)/2)
+      2*N = (2S - k+1)+ ... (2S-2) + 2S + (2S + 2) + ... (2S + k-1)
+      We can then rebalance the left an right of 2S
+       - taking 1 from 2S + 2 to 2S - 2 -> 2S - 1 ... 2S + 1
+       - taking 2 from 2S + 4 to 2S - 4 -> 2S - 2 .... 2S + 2
+       ...
+       - taking (k-1)/2 from (2S + k-1) to (2S - k+1)
+      So:
+      2N = (2S - (k-1)/2) + ... + 2S + ... + 2S + (k-1)/2
+      that is polite too
 """
 
 def list_digit(N):
